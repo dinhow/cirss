@@ -307,9 +307,36 @@
             };
 
             const complexityScenarios = {
-                low: { costs: { labor: 400, materials: 200 } },
-                medium: { costs: { labor: 800, materials: 650 } },
-                high: { costs: { labor: 1600, materials: 1200 } }
+                low: {
+                    title: 'Cenário: Baixa Complexidade',
+                    description: 'Normalmente envolve falhas simples e pontuais, que não exigem grande retrabalho de infraestrutura.',
+                    tasks: [
+                        '- Troca de conectores defeituosos.',
+                        '- Substituição de uma ou duas fontes de alimentação.',
+                        '- Reparo ou troca de um sensor de alarme.'
+                    ],
+                    costs: { labor: 400, materials: 200 }
+                },
+                medium: {
+                    title: 'Cenário: Média Complexidade',
+                    description: 'Envolve a substituição de alguns equipamentos e reconfigurações no sistema central.',
+                    tasks: [
+                        '- Substituição de algumas câmeras ou sensores.',
+                        '- Troca de uma fonte de alimentação centralizada.',
+                        '- Reconfiguração de gravação e detecção no DVR/NVR.'
+                    ],
+                    costs: { labor: 800, materials: 650 }
+                },
+                high: {
+                    title: 'Cenário: Alta Complexidade',
+                    description: 'Requer diagnóstico avançado e pode envolver intervenção na infraestrutura de cabos ou rede.',
+                    tasks: [
+                        '- Repasse de um trecho de cabeamento.',
+                        '- Diagnóstico de falhas em switches de rede (CFTV IP).',
+                        '- Substituição de múltiplos equipamentos críticos.'
+                    ],
+                    costs: { labor: 1600, materials: 1200 }
+                }
             };
             
             const maintenancePlans = {
@@ -325,6 +352,9 @@
 
             const phase1CostEl = document.getElementById('phase-1-cost');
             const phase1HoursEl = document.getElementById('phase-1-hours');
+            const scenarioTitleEl = document.getElementById('scenario-title');
+            const scenarioDescriptionEl = document.getElementById('scenario-description');
+            const scenarioTasksEl = document.getElementById('scenario-tasks');
             
             const sizeButtons = document.querySelectorAll('.size-btn');
             const complexityButtons = document.querySelectorAll('.complexity-btn');
@@ -384,6 +414,10 @@
                 }
                 
                 const complexityData = complexityScenarios[currentComplexity];
+                scenarioTitleEl.textContent = complexityData.title;
+                scenarioDescriptionEl.textContent = complexityData.description;
+                scenarioTasksEl.innerHTML = complexityData.tasks.map(task => `<li>${task}</li>`).join('');
+                
                 costChart.data.datasets[0].data = [complexityData.costs.labor, complexityData.costs.materials];
                 costChart.update();
             }
