@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Interativa de Reativação de Sistemas de Segurança</title>
+    <title>Calculadora Interativa de Reativação e Manutenção de Sistemas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <!-- Chosen Palette: Warm Neutrals with Slate Blue Accent -->
-    <!-- Application Structure Plan: A guided, single-page tool. It now starts by sizing the system (Phase 1 cost) before estimating Phase 2 complexity. This creates a more logical and accurate estimation flow. Phase 1 cost is now dynamic based on system size, addressing a key user requirement for variable audit pricing. The rest of the structure remains, flowing from the known (audit cost) to the unknown (repair cost). -->
-    <!-- Visualization & Content Choices: Added a system size selector (buttons) for Phase 1. This choice dynamically updates the Phase 1 cost text and the overall summary calculation. The Phase 2 bar chart remains, visualizing the variable nature of repairs. This enhances the tool's accuracy while keeping its educational purpose. -->
+    <!-- Application Structure Plan: A guided, single-page tool. It now starts by sizing the system (Phase 1 cost) before estimating Phase 2 complexity. This creates a more logical and accurate estimation flow. Phase 1 cost is now dynamic based on system size, addressing a key user requirement for variable audit pricing. The rest of the structure remains, flowing from the known (audit cost) to the unknown (repair cost). A new Phase 3 section for monthly maintenance plans has been added. -->
+    <!-- Visualization & Content Choices: Added a system size selector (buttons) for Phase 1. This choice dynamically updates the Phase 1 cost text and the overall summary calculation. The Phase 2 bar chart remains, visualizing the variable nature of repairs. Phase 3 uses interactive cards and a toggle for alarm system maintenance, providing clear, comparable service packages. This enhances the tool's accuracy while keeping its educational purpose. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -73,8 +73,8 @@
             <div class="flex justify-center items-center mb-4">
                 <span class="ml-4 text-2xl font-semibold text-gray-800">NC Solutions</span>
             </div>
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Calculadora Interativa de Reativação de Sistemas</h1>
-            <p class="text-lg text-gray-600">Uma ferramenta para estimar e entender o processo de revitalização do seu sistema de segurança.</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Calculadora de Serviços de Segurança</h1>
+            <p class="text-lg text-gray-600">Uma ferramenta para estimar a reativação e a manutenção contínua do seu sistema.</p>
         </header>
 
         <main class="space-y-12">
@@ -146,7 +146,7 @@
                         </ul>
                         <div class="text-center border-t pt-4">
                             <p class="text-gray-600 font-medium">Valor Fixo Estimado para o Diagnóstico:</p>
-                            <p id="phase-1-cost" class="text-3xl font-bold text-gray-800">A partir de R$ 480</p>
+                            <p id="phase-1-cost" class="text-3xl font-bold text-gray-800">A partir de R$ 580</p>
                             <p id="phase-1-hours" class="text-sm text-gray-500">Estimativa de 4 horas de serviço</p>
                         </div>
                     </div>
@@ -195,24 +195,80 @@
                 </div>
             </section>
             
-            <!-- Summary Section -->
-            <section id="summary" class="bg-gray-800 text-white rounded-lg p-6 md:p-8 text-center">
-                <h2 class="text-2xl font-bold mb-4">Estimativa Total do Projeto</h2>
-                <p class="text-gray-300 mb-6">Esta é uma projeção que combina o custo da auditoria (baseado no tamanho) com a estimativa da reativação (baseada na complexidade).</p>
-                <div class="flex flex-col md:flex-row justify-center items-center md:space-x-8 space-y-4 md:space-y-0">
-                    <div class="text-center">
-                        <p class="text-gray-400 uppercase text-sm tracking-wider">Fase 1 (Estimado)</p>
-                        <p id="summary-phase-1-cost" class="text-2xl font-semibold">R$ 480</p>
+            <!-- Phase 3 Section: Maintenance Plans -->
+            <section id="phase-3" class="card p-6 md:p-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gray-800 text-white rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold mr-4">3</div>
+                    <h2 class="section-title flex-1 !mb-0 !pb-0 !border-none">Fase 3: Planos de Manutenção Mensal (Opcional)</h2>
+                </div>
+                <p class="mb-6 text-gray-600">Após a reativação, garanta a tranquilidade com um de nossos planos de manutenção. Oferecemos monitoramento proativo da saúde do sistema, suporte prioritário e visitas preventivas para evitar futuras falhas.</p>
+                
+                <div class="flex flex-col items-center mb-4">
+                    <div class="mb-2 text-center">
+                        <h4 class="font-semibold text-gray-700">Tipo de Manutenção:</h4>
+                        <div id="maintenance-type-selector" class="flex justify-center gap-4 mt-2">
+                            <button data-type="cftv" class="maintenance-type-btn btn-active px-4 py-2 rounded-lg font-semibold">Apenas CFTV</button>
+                            <button data-type="cftv_alarm" class="maintenance-type-btn btn-inactive px-4 py-2 rounded-lg font-semibold">Incluir Alarme</button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2 text-center">O serviço de alarme inclui testes periódicos e monitoramento de falhas, não de eventos de disparo.</p>
                     </div>
-                    <div class="text-4xl font-light text-gray-500">+</div>
-                    <div class="text-center">
-                        <p class="text-gray-400 uppercase text-sm tracking-wider">Fase 2 (Estimado)</p>
-                        <p id="summary-phase-2-cost" class="text-2xl font-semibold">R$ 600</p>
+                </div>
+                
+                <div class="flex flex-col items-center mb-8">
+                    <div class="mb-2 text-center">
+                        <h4 class="font-semibold text-gray-700">Visitas Técnicas Extras (1h cada/mês):</h4>
+                        <div id="extra-visits-selector" class="flex justify-center gap-4 mt-2">
+                            <button data-visits="0" class="extra-visits-btn btn-active px-4 py-2 rounded-lg font-semibold">Nenhuma</button>
+                            <button data-visits="1" class="extra-visits-btn btn-inactive px-4 py-2 rounded-lg font-semibold">+1 Visita</button>
+                            <button data-visits="2" class="extra-visits-btn btn-inactive px-4 py-2 rounded-lg font-semibold">+2 Visitas</button>
+                        </div>
                     </div>
-                    <div class="text-4xl font-light text-gray-500">=</div>
-                    <div class="text-center bg-white text-gray-900 p-4 rounded-lg">
-                        <p class="uppercase text-sm tracking-wider font-semibold">Total Estimado</p>
-                        <p id="summary-total-cost" class="text-3xl font-bold">R$ 1.080</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Plan 1: Essencial -->
+                    <div class="border rounded-lg p-6 flex flex-col">
+                        <h3 class="text-xl font-bold text-center text-gray-800">Plano Essencial</h3>
+                        <p class="text-center text-sm text-gray-500 mb-4">Até 20 pontos</p>
+                        <p id="plan-essential-price" class="text-center text-4xl font-bold text-gray-900 mb-4">R$ 150</p>
+                        <p class="text-center text-gray-600 mb-6">/mês</p>
+                        <ul class="space-y-3 text-gray-700 flex-grow">
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>Monitoramento de Falhas</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>Suporte Prioritário</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>1 Visita Preventiva/Trim.</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-gray-400 mr-2">cancel</span><span class="text-gray-500">Hora Técnica com Desconto</span></li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-gray-400 mr-2">cancel</span><span class="text-gray-500">Desconto em Orçamentos</span></li>
+
+                        </ul>
+                    </div>
+                    <!-- Plan 2: Avançado -->
+                    <div class="border-2 border-gray-800 rounded-lg p-6 flex flex-col relative">
+                        <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs font-bold px-3 py-1 rounded-full">MAIS POPULAR</div>
+                        <h3 class="text-xl font-bold text-center text-gray-800">Plano Avançado</h3>
+                        <p class="text-center text-sm text-gray-500 mb-4">21 a 50 pontos</p>
+                        <p id="plan-advanced-price" class="text-center text-4xl font-bold text-gray-900 mb-4">R$ 225</p>
+                        <p class="text-center text-gray-600 mb-6">/mês</p>
+                        <ul class="space-y-3 text-gray-700 flex-grow">
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>Monitoramento de Falhas</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>Suporte Prioritário</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>2 Visitas Preventivas/Trim.</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>Hora Técnica com Desconto</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-gray-400 mr-2">cancel</span><span class="text-gray-500">Desconto em Orçamentos</span></li>
+                        </ul>
+                    </div>
+                    <!-- Plan 3: Completo -->
+                    <div class="border rounded-lg p-6 flex flex-col">
+                        <h3 class="text-xl font-bold text-center text-gray-800">Plano Completo</h3>
+                        <p class="text-center text-sm text-gray-500 mb-4">Acima de 50 pontos</p>
+                        <p id="plan-complete-price" class="text-center text-4xl font-bold text-gray-900 mb-4">R$ 315</p>
+                        <p class="text-center text-gray-600 mb-6">/mês</p>
+                        <ul class="space-y-3 text-gray-700 flex-grow">
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>Monitoramento de Falhas</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>Suporte Prioritário</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>1 Visita Preventiva/Mês</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>Hora Técnica com Desconto</li>
+                            <li class="flex items-center"><span class="material-symbols-outlined text-green-500 mr-2">check_circle</span>Desconto em Orçamentos</li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -231,7 +287,7 @@
         <footer class="text-center mt-12 border-t pt-6">
             <p class="text-sm text-gray-500">&copy; 2025 NC Solutions. Todos os direitos reservados.</p>
             <p class="text-xs text-gray-400 mt-2">
-                <a href="https://www.linkedin.com/in/dinho-cristenson" target="_blank" class="hover:underline">Desenvolvido por Edmilson R. Cristenson da Silva</a>
+                <a href="https://www.linkedin.com/in/seu-perfil-aqui" target="_blank" class="hover:underline">Desenvolvido por Edmilson R. Cristenson da Silva</a>
             </p>
         </footer>
 
@@ -240,7 +296,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             
-            const hourlyRate = 145; // R$ por hora
+            const auditHourlyRate = 145; 
+            const standardVisitCost = 120;
+            const discountedVisitCost = 108; // 10% de desconto sobre 120
 
             const systemSizes = {
                 small: { hours: 4, textPrefix: 'A partir de ' },
@@ -249,52 +307,29 @@
             };
 
             const complexityScenarios = {
-                low: {
-                    title: 'Cenário: Baixa Complexidade',
-                    description: 'Normalmente envolve falhas simples e pontuais, que não exigem grande retrabalho de infraestrutura.',
-                    tasks: [
-                        '- Troca de conectores defeituosos (BNC, P4).',
-                        '- Substituição de uma ou duas fontes de alimentação.',
-                        '- Reparo ou troca de um sensor de alarme acessível.'
-                    ],
-                    costs: { labor: 400, materials: 200 }
-                },
-                medium: {
-                    title: 'Cenário: Média Complexidade',
-                    description: 'Envolve a substituição de alguns equipamentos e reconfigurações no sistema central.',
-                    tasks: [
-                        '- Substituição de algumas câmeras ou sensores.',
-                        '- Troca de uma fonte de alimentação centralizada.',
-                        '- Reconfiguração de gravação e detecção no DVR/NVR.'
-                    ],
-                    costs: { labor: 800, materials: 650 }
-                },
-                high: {
-                    title: 'Cenário: Alta Complexidade',
-                    description: 'Requer diagnóstico avançado e pode envolver intervenção na infraestrutura de cabos ou rede.',
-                    tasks: [
-                        '- Repasse de um trecho de cabeamento.',
-                        '- Diagnóstico de falhas em switches de rede (CFTV IP).',
-                        '- Substituição de múltiplos equipamentos críticos.'
-                    ],
-                    costs: { labor: 1600, materials: 1200 }
-                }
+                low: { costs: { labor: 400, materials: 200 } },
+                medium: { costs: { labor: 800, materials: 650 } },
+                high: { costs: { labor: 1600, materials: 1200 } }
+            };
+            
+            const maintenancePlans = {
+                essential: { base: 150, alarmSurcharge: 50 },
+                advanced: { base: 225, alarmSurcharge: 75 },
+                complete: { base: 315, alarmSurcharge: 105 }
             };
 
             let currentSize = 'small';
             let currentComplexity = 'low';
+            let maintenanceType = 'cftv';
+            let extraVisits = 0;
 
             const phase1CostEl = document.getElementById('phase-1-cost');
             const phase1HoursEl = document.getElementById('phase-1-hours');
-            const summaryPhase1CostEl = document.getElementById('summary-phase-1-cost');
-            const summaryPhase2CostEl = document.getElementById('summary-phase-2-cost');
-            const summaryTotalCostEl = document.getElementById('summary-total-cost');
-            const scenarioTitleEl = document.getElementById('scenario-title');
-            const scenarioDescriptionEl = document.getElementById('scenario-description');
-            const scenarioTasksEl = document.getElementById('scenario-tasks');
             
             const sizeButtons = document.querySelectorAll('.size-btn');
             const complexityButtons = document.querySelectorAll('.complexity-btn');
+            const maintenanceTypeButtons = document.querySelectorAll('.maintenance-type-btn');
+            const extraVisitsButtons = document.querySelectorAll('.extra-visits-btn');
 
             const ctx = document.getElementById('costChart').getContext('2d');
             const costChart = new Chart(ctx, {
@@ -336,40 +371,36 @@
                 return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
             }
 
-            function updateDisplay() {
-                // Update Phase 1
+            function updateReactivationDisplay() {
                 const sizeData = systemSizes[currentSize];
-                const phase1Cost = sizeData.hours * hourlyRate;
+                const phase1Cost = sizeData.hours * auditHourlyRate;
 
                 if (currentSize === 'large') {
                     phase1CostEl.textContent = sizeData.textPrefix;
                     phase1HoursEl.textContent = 'O tempo de serviço será definido após visita técnica.';
-                    summaryPhase1CostEl.textContent = 'a definir';
                 } else {
                     phase1CostEl.textContent = sizeData.textPrefix + formatCurrency(phase1Cost);
                     phase1HoursEl.textContent = `Estimativa de ${sizeData.hours} horas de serviço`;
-                    summaryPhase1CostEl.textContent = formatCurrency(phase1Cost);
                 }
                 
-                // Update Phase 2
                 const complexityData = complexityScenarios[currentComplexity];
-                scenarioTitleEl.textContent = complexityData.title;
-                scenarioDescriptionEl.textContent = complexityData.description;
-                scenarioTasksEl.innerHTML = complexityData.tasks.map(task => `<li>${task}</li>`).join('');
-                
-                const phase2Total = complexityData.costs.labor + complexityData.costs.materials;
-                summaryPhase2CostEl.textContent = formatCurrency(phase2Total);
-                
                 costChart.data.datasets[0].data = [complexityData.costs.labor, complexityData.costs.materials];
                 costChart.update();
+            }
+            
+            function updateMaintenanceDisplay() {
+                const includeAlarm = maintenanceType === 'cftv_alarm';
+                
+                const essentialExtraVisitsCost = extraVisits * standardVisitCost;
+                const essentialPrice = maintenancePlans.essential.base + (includeAlarm ? maintenancePlans.essential.alarmSurcharge : 0) + essentialExtraVisitsCost;
+                document.getElementById('plan-essential-price').textContent = formatCurrency(essentialPrice);
 
-                // Update Summary
-                if (currentSize === 'large') {
-                    summaryTotalCostEl.textContent = 'a definir';
-                } else {
-                    const totalProjectCost = phase1Cost + phase2Total;
-                    summaryTotalCostEl.textContent = formatCurrency(totalProjectCost);
-                }
+                const discountedExtraVisitsCost = extraVisits * discountedVisitCost;
+                const advancedPrice = maintenancePlans.advanced.base + (includeAlarm ? maintenancePlans.advanced.alarmSurcharge : 0) + discountedExtraVisitsCost;
+                document.getElementById('plan-advanced-price').textContent = formatCurrency(advancedPrice);
+
+                const completePrice = maintenancePlans.complete.base + (includeAlarm ? maintenancePlans.complete.alarmSurcharge : 0) + discountedExtraVisitsCost;
+                document.getElementById('plan-complete-price').textContent = formatCurrency(completePrice);
             }
 
             sizeButtons.forEach(button => {
@@ -378,7 +409,7 @@
                     if (button.id.includes('medium-size')) currentSize = 'medium';
                     sizeButtons.forEach(btn => btn.classList.replace('btn-active', 'btn-inactive'));
                     button.classList.replace('btn-inactive', 'btn-active');
-                    updateDisplay();
+                    updateReactivationDisplay();
                 });
             });
 
@@ -386,14 +417,32 @@
                 button.addEventListener('click', () => {
                     currentComplexity = button.id.split('-')[1];
                     if (button.id.includes('medium-complexity')) currentComplexity = 'medium';
-
                     complexityButtons.forEach(btn => btn.classList.replace('btn-active', 'btn-inactive'));
                     button.classList.replace('btn-inactive', 'btn-active');
-                    updateDisplay();
+                    updateReactivationDisplay();
+                });
+            });
+            
+            maintenanceTypeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    maintenanceType = button.dataset.type;
+                    maintenanceTypeButtons.forEach(btn => btn.classList.replace('btn-active', 'btn-inactive'));
+                    button.classList.replace('btn-inactive', 'btn-active');
+                    updateMaintenanceDisplay();
                 });
             });
 
-            updateDisplay();
+            extraVisitsButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    extraVisits = parseInt(button.dataset.visits, 10);
+                    extraVisitsButtons.forEach(btn => btn.classList.replace('btn-active', 'btn-inactive'));
+                    button.classList.replace('btn-inactive', 'btn-active');
+                    updateMaintenanceDisplay();
+                });
+            });
+
+            updateReactivationDisplay();
+            updateMaintenanceDisplay();
         });
     </script>
 </body>
